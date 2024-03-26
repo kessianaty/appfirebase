@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "@firebase/auth";
-import { initializeApp } from "firebase/app";
-import Firebase from '../firebase';
+import Firebase from '../../firebase';
 
 export default function Login({navigation}) {
   const [email, setEmail] = useState('');
@@ -70,8 +69,8 @@ const styles = StyleSheet.create({
     },
     TextoInput:{
         width:300,
-        backgroundColor: '#0000CD',
-        color: '#fff',
+        backgroundColor: '#00BFFF',
+        color: '#000',
         fontSize: 25,
         marginTop: 20,
         borderRadius:10
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
     },
     botao:{
         width:250,
-        backgroundColor: '#FF0000',
+        backgroundColor: '#000080',
         height:50,
         alignItems: 'center',
         justifyContent: 'center',
