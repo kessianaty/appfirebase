@@ -1,44 +1,119 @@
-import {StatusBar} from 'expo-status-bar';
-import { StyleSheet, Text, View, FiatList, TouchableOpacity, Alert } from 'react-native';
-import Firebase from '../firebase';
-import {MaterialommunityIcons} from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
+import React, {useState, useEffect} from 'react';
+import {  View, Text, StyleSheet,  FlatList, TouchableOpacity, Alert } from 'react-native';
+import Firebase from '../Firebase';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function Home({navigation}) {
+export default function Home({navigation}) { 
 
   const [diario, setDiario] = useState([]);
-
-  function deleteDiario(id){
+  function deleteDiario(id)
+  {
     Firebase.collection("diario").doc(id).delete();
-    Alert.alert("A diario foi deletada");
+
+    Alert.alert("O diario foi Deletado.");
   }
 
-  useEffect(()=>{
-    Firebase.collection("diario").onSnapshot((query)=>{
+  useEffect(()=>
+  {
+    Firebase.collection("diario").onSnapshot((query)=>
+    {
       const lista=[];
-      query.forEach((doc)=>{
+      query.forEach((doc) =>
+      {
         lista.push({...doc.data(),id: doc.id});
       });
       setDiario(lista);
     });
   },[]);
+
   return (
     <View style={styles.container}>
-      <Text>Meu Diário</Text>
-      <Text>Data: 11/03/2024</Text>
-      <Text>Palavra: Do Senhor Jesus Cristo.</Text>
-      <Text>Amai aos Códigos como a si mesmo.</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+      <View>
+        <Text style={estilo.titulo}>Lista de Dias</Text>
+      </View>
 
-const styles = StyleSheet.create({
+      <FlatList
+      data={diario}
+      renderItem={({item})=>{
+        return(
+          <View style={estilo.musicas}>
+
+            <TouchableOpacity onPress={()=>navigation.navigate("AlterarDiario",{
+              id: item.id,
+              banda: item.artistabanda,
+              genero: item.genero,
+              musica: item.musica
+              })}>
+              <View style={estilo.itens}>
+                <Text style={estilo.titulobanda}> Artista/Banda: <Text style={estilo.textobanda}>{item.artistabanda}
+                </Text></Text><Text style={estilo.titulobanda}> Genêro: <Text style={estilo.textobanda}>{item.genero}
+                  </Text> </Text>
+                <Text style={estilo.titulobanda}> Música: <Text style={estilo.textobanda}>{item.musica}
+                </Text></Text>
+              </View>
+            </TouchableOpacity>
+
+            <View style={estilo.botaodeletar}>
+              <TouchableOpacity onPress={()=>{deleteDiario(item.id)}}>
+              <MaterialCommunityIcons name="delete-empty" size={70} color="red"/>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+        );
+          }}
+          />
+          <TouchableOpacity style={estilo.addbutton} onPress={()=> navigation.navigate("CadMusica")}>
+            <MaterialCommunityIcons name="plus-circle-outline" size={70} color="green" />
+          </TouchableOpacity>
+       </View>
+        );
+      }
+
+ 
+const estilo = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center'
   },
+  titulo:{
+    marginTop: 50,
+    fontSize: 30
+  },
+  itens:{
+    marginHorizontal: 10,
+    marginVertical: 10,
+    padding: 10,
+  },
+  titulobanda:{
+    fontSize: 13,
+    collor:'#fff',
+  },
+  textobanda:{
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+  musicas:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+    marginVertical: 10,
+    padding: 10,
+    backgroundColor: '#0000CD',
+    borderRadius: 10
+  },
+  botaodeletar:{
+    textAlignVertical: 'center',
+    marginVertical: 10
+  },
+  addbutton:{
+    backgroundColor: '#ffffff',
+    borderRadius: 50,
+    position: 'absolute',
+    left: 20,
+    bottom: 40,
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
-  

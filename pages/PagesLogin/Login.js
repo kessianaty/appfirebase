@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Text, TextInput, View, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Text, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "@firebase/auth";
 import Firebase from '../../firebase';
 
@@ -55,6 +54,11 @@ export default function Login({navigation}) {
         }}
       >
         <Text style={styles.botaotexto}>Logar</Text>
+      </TouchableOpacity>
+
+      <Text style={{marginTop: 25, flexDirection: "row", alignItems: "center", alignSelf: "center"}}>Não possui uma conta?</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
+        <Text style={{fontWeight: 'bold', color: '#0000CD', fontSize: 15}}>Cadastro</Text>
       </TouchableOpacity>
     </View>
   );

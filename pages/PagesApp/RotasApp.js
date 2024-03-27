@@ -1,9 +1,8 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import {createStackNavigator} from 'npm ';
 
 import Home from './Home';
-import CadDiario from './CadaDiario';
+import CaDiario from './CadDiario';
 import AlterarDiario from './AlterarDiario';
 
 const Stack = createStackNavigator();
