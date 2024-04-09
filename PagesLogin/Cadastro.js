@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import {getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import Firebase from '../../firebase';
-import {auth} from '../../firebase';
+import {auth} from '../firebase';
 
 export default function Cadastro({ navigation }) {
 

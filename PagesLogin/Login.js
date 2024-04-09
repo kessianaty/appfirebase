@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Text, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "@firebase/auth";
-import Firebase from '../../firebase';
+import Firebase from '../firebase';
 
 export default function Login({navigation}) {
   const [email, setEmail] = useState('');
